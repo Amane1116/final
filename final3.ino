@@ -11,6 +11,7 @@ const char* password = "sophia030";
 const char* host = "maker.ifttt.com"; //IFTTT server網址
 const char* event = "line_notify";  //IFTTT事件名稱
 const char* apiKey = "dPyYp3N4BelhDWI-qwBE-q";  //IFTTT Applet key
+void ClientRequest(String value2);
 
 void setup() {
   Serial.begin(115200);
@@ -24,19 +25,7 @@ void setup() {
     pinMode(34,INPUT);
     display.clear();
    // display.setTextSize(3);
-   
-  
-   if(analogRead(sensor_pin)>=100){
-    // Connect to Wi-Fi
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-     Serial.print(".");
-   }
-     Serial.println("");
-     Serial.println("WiFi connected");  
- }
- 
+
 }
 
 void loop() {
@@ -52,6 +41,17 @@ void loop() {
       Serial.println("too heavy!");
       display.setFont(ArialMT_Plain_24);   //設定字型與大小
       display.drawString(15,20, String("too heavy!"));  //(x座標,y座標,"字串")
+
+    // Connect to Wi-Fi
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+     Serial.print(".");
+    }
+     Serial.println("");
+     Serial.println("WiFi connected");  
+ 
+     
      //cilent資料傳送
       int value2 = analogRead(sensor_pin) ;
       ClientRequest(String(value2));  //Client傳送資料
